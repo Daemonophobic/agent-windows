@@ -10,6 +10,7 @@ namespace WINREM
         private static byte[] key = new byte[] { 0xd9, 0xb2, 0x4b, 0x41, 0x5d, 0x05, 0x6e, 0xfd, 0x89, 0xc4, 0x41, 0xdf, 0xed, 0x4b, 0x80, 0x65, 0x34, 0x90, 0xed, 0xc6, 0xb4, 0x67, 0x93, 0xab, 0x5d, 0x16, 0x62, 0x16, 0xe9, 0xaa, 0xa1, 0x03, 0x93, 0x5d, 0x46, 0x46, 0x2d, 0xaa, 0x1e, 0x10, 0x56, 0x93, 0xfe, 0xd1, 0xe2, 0xd0, 0xd5, 0x10, 0x98, 0xed, 0x5a, 0x19, 0x55, 0x1b, 0x1e, 0x88, 0x3e, 0x41, 0x31, 0x92, 0x22, 0x70, 0x9c, 0x1a };
         static void Main(string[] args)
         {
+            
             AppDomain.CurrentDomain.ProcessExit += ProccessExitHandler;
             string SecureFile = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\win.rem";
             try
@@ -51,7 +52,7 @@ namespace WINREM
                             PrintHelp();
                             return;
                         }
-                        else if (args[i] == "--api-key")
+                        else if (args[i] == "--key")
                         {
                             if (i + 1 < args.Length)
                             {
@@ -160,7 +161,7 @@ namespace WINREM
             Console.WriteLine("Usage: winrem [options]");
             Console.WriteLine("------------------");
             Console.WriteLine("\t--help\t\tDisplay this help message");
-            Console.WriteLine("\t--api-key [API-KEY]\tEnable verbose mode");
+            Console.WriteLine("\t--key [API-KEY]\tEnable verbose mode - This is only need on first time setup or on moving of the application");
         }
 
         public static void ProccessExitHandler(object sender , EventArgs e)
